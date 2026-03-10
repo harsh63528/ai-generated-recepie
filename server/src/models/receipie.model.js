@@ -1,0 +1,29 @@
+import mongoose from mongoose;
+const receipieSchema=new mongoose.schema({
+    title:{
+        type:String,
+        required:true,
+    },
+    description:{
+        type:String,
+        required:true,
+    },
+    ingredients:{
+        type:[String],
+        required:true,
+    },
+    instructions:{
+        type:[String],
+        required:true,
+    },
+    user:{
+        type:String,
+        required:true,
+    },
+    tags:{
+        type:[String],
+        required:true,
+    }
+},{
+    timestamps:true
+})
