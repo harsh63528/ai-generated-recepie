@@ -13,9 +13,13 @@ import connectDB from './config/db.config.js';
 // import the authentication routes from the routes folder
 import authRoutes from './routes/auth.route.js';
 
+import cookieParser from 'cookie-parser';
+;
+
 connectDB();
 
 const app = express();
+app.use(cookieParser())
 
 // use middleware to handle CORS, parse JSON and URL-encoded data
 app.use(cors());
