@@ -12,6 +12,7 @@ import cors from 'cors';
 import connectDB from './config/db.config.js';
 // import the authentication routes from the routes folder
 import authRoutes from './routes/auth.route.js';
+import contentRoutes from './routes/content.route.js';
 
 import cookieParser from 'cookie-parser';
 ;
@@ -34,6 +35,8 @@ app.use(express.urlencoded({ extended: true }));
  * @access Public
  */
 app.use('/api/auth', authRoutes);
+
+app.use('/api/data', contentRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
