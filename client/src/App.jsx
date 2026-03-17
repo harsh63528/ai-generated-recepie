@@ -4,8 +4,11 @@ import { Route,Routes } from 'react-router-dom'
 import Home from './page/home.jsx'
 import LogIn from './page/login.jsx'
 import SignUp from './page/signup.jsx'
+import useStore from './store/useStore.js'
 
 function App() {
+
+  const { user } = useStore();
   return(
     <>
     <Navbar/>
