@@ -25,7 +25,7 @@ const newUser=new userModel({
 
 await newUser.save();
 const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET,{expiresIn:'1h'});
-res.cookie('token',token,{httpOnly:true,secure:false,sameSite:'strict'});
+res.cookie('token',token,{httpOnly:true,secure:true,sameSite:'strict'});
 
 res.status(201).send({message:'User registered successfully', token});
 
@@ -46,7 +46,7 @@ if(!isMatch) {
     return res.status(400).send('Invalid credentials');
 }
 const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1h'});
-res.cookie('token',token,{httpOnly:true,secure:false,sameSite:'strict'});
+res.cookie('token',token,{httpOnly:true,secure:true,sameSite:'strict'});
 res.status(200).send({message:'User logged in successfully', token});
 
 }
