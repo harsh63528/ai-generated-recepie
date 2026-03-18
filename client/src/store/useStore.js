@@ -6,6 +6,8 @@ const useStore = create((set) => ({
   setUser: (user) => set({ user }),
   getUser: async (data) => {
 try {
+  console.log('Fetching user with data:', data);
+  console.log('Axios instance:', instance);
   const userId= await instance.post('/auth/login', data);
    console.log('User ID:', userId);
   set({ user: userId });
