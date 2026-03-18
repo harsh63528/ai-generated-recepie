@@ -9,13 +9,22 @@ try {
   console.log('Fetching user with data:', data);
   console.log('Axios instance:', instance);
   const userId= await instance.post('/auth/login', data);
-   console.log('User ID:', userId);
-  set({ user: userId });
+   console.log('User ID:', userId.data.user);
+  set({ user: userId.data.user });
  
 } catch (error) {
     console.error('Error fetching user:', error);
 }
+  },
+  getUserData: async () => {
+    try {
+      let response = await instance.get('/auth/profile');
+      set({ user: response.data.user });
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   }
+
 }));
 
 export default useStore;

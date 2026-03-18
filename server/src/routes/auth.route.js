@@ -11,6 +11,6 @@ router.post('/login', loginUser);
 
 router.delete('/logout', logoutUser);
 
-router.post('/profile',authenticateToken,getProfile);
+router.get('/profile',authenticateToken,getProfile);
 
 export default router;
