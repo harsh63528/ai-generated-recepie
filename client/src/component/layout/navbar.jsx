@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import useStore from "../../store/useStore";
 
 export default function Navbar() {
+  const { user } = useStore();
   return (
     <nav className="h-16 flex items-center justify-between px-6 bg-white shadow-md">
 
@@ -21,11 +23,12 @@ export default function Navbar() {
       </ul>
 
       {/* Auth Buttons */}
-      <div className="flex gap-3">
-        <Link
-          to="/login"
-          className="px-4 py-1.5 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition"
-        >
+      {!user && (
+        <div className="flex gap-3">
+          <Link
+            to="/login"
+            className="px-4 py-1.5 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition"
+          >
           Login
         </Link>
 
@@ -35,7 +38,9 @@ export default function Navbar() {
         >
           Sign Up
         </Link>
-      </div>
+      </div>)
+      }
+      
     </nav>
   );
 }

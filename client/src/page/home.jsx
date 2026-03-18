@@ -1,4 +1,10 @@
+import { Navigate } from "react-router-dom";
+import useStore from "../store/useStore";
+
 export default function Home() {
+let {user} = useStore();
+
+
   return (
     <div className="bg-background-light min-h-screen">
       <header className="p-4 border-b">

@@ -4,7 +4,7 @@ import instance from '../api/axios.instance.js';
 const useStore = create((set) => ({
   user: null,
   setUser: (user) => set({ user }),
-  getUser: async (data) => {
+  logIn: async (data) => {
 try {
   console.log('Fetching user with data:', data);
   console.log('Axios instance:', instance);
@@ -16,12 +16,12 @@ try {
     console.error('Error fetching user:', error);
 }
   },
-  getUserData: async () => {
+  Profile: async () => {
     try {
       let response = await instance.get('/auth/profile');
       set({ user: response.data.user });
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error('Error fetching user data:', error.message);
     }
   }
 

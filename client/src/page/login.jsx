@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import useStore from "../store/useStore";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
   const email = useRef(null);
   const password = useRef(null);
+  const navigate = useNavigate();
 
-  const { getUser } = useStore();
+  const { logIn,user} = useStore();
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,9 @@ export default function Login() {
     }
 
     try {
-      await getUser(data);
+      await logIn(data);
+       navigate('/');
+      
     } catch (err) {
       console.error(err);
     }
