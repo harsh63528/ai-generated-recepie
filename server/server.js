@@ -28,7 +28,9 @@ app.use(cookieParser())
 
 // use middleware to handle CORS, parse JSON and URL-encoded data
 app.use(cors({
-    origin: 'http://localhost:5174', // allow requests from this origin
+    origin: ['http://localhost:5174',
+        'https://ai-generated-recepie.vercel.app/'
+    ], // allow requests from this origin
     credentials: true // allow cookies to be sent with requests
 }));
 app.use(express.json());
