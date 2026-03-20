@@ -23,6 +23,15 @@ try {
     } catch (error) {
       console.error('Error fetching user data:', error.message);
     }
+  },
+  register: async(data)=>{
+    try {
+      let response= await instance.post('/auth/register',data);
+      console.log('Registration response:', response.data);
+       set({ user: response.data.user });
+    } catch (error) {
+      console.error('Error registering user:', error.message);
+    }
   }
 
 }));
