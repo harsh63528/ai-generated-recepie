@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import instance from '../api/axios.instance.js';
-import { useNavigate } from 'react-router-dom';
+
 
 const useStore = create((set) => ({
   user: null,
@@ -49,7 +49,8 @@ try {
 
   try {
     set({logoutloading:true})
-      return await instance.delete('/auth/logout');
+      await instance.delete('/auth/logout');
+      set({user:null})
      } catch (error) {
       console.error(error.message)
      }finally{

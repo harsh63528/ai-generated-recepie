@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import useStore from "../../store/useStore";
 
 export default function Navbar() {
-  const { user, logout, logoutloading } = useStore();
+  const { user, logout, logoutloading,profileloading} = useStore();
 
+  
+   
   return (
     <nav className="h-16 flex items-center justify-between px-6 bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
 
@@ -36,40 +38,45 @@ export default function Navbar() {
       </ul>
 
       {/* Auth Section */}
-      {!user ? (
-        <div className="flex gap-3">
-          <Link
-            to="/login"
-            className="px-4 py-1.5 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition duration-200"
-          >
-            Login
-          </Link>
+      {profileloading ? (
+  //  Loading skeleton (no flicker)
+  <div className="h-8 w-24 bg-gray-200 animate-pulse rounded-full"></div>
 
-          <Link
-            to="/signup"
-            className="px-4 py-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition duration-200 shadow-sm"
-          >
-            Sign Up
-          </Link>
-        </div>
-      ) : (
-        <div className="flex items-center gap-4">
-          
-          {/* User Info */}
-          <span className="text-gray-700 font-medium hidden sm:block">
-            Hi, {user?.username || "User"}
-          </span>
+) : !user ? (
+  //  Not logged in
+  <div className="flex gap-3">
+    <Link
+      to="/login"
+      className="px-4 py-1.5 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition duration-200"
+    >
+      Login
+    </Link>
 
-          {/* Logout Button */}
-          <button
-            onClick={logout}
-            disabled={logoutloading}
-            className="px-4 py-1.5 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition disabled:opacity-50"
-          >
-            {logoutloading ? "..." : "Logout"}
-          </button>
-        </div>
-      )}
+    <Link
+      to="/signup"
+      className="px-4 py-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition duration-200 shadow-sm"
+    >
+      Sign Up
+    </Link>
+  </div>
+
+) : (
+  //  Logged in
+  <div className="flex items-center gap-4">
+
+    <span className="text-gray-700 font-medium hidden sm:block">
+      Hi, {user?.username || "User"}
+    </span>
+
+    <button
+      onClick={logout}
+      disabled={logoutloading}
+      className="px-4 py-1.5 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition disabled:opacity-50"
+    >
+      {logoutloading ? "..." : "Logout"}
+    </button>
+  </div>
+)}
     </nav>
   );
 }
