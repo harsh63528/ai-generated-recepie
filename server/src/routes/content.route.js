@@ -5,6 +5,6 @@ import authenticateToken from '../utils/authentication.middleware.js';
 
 const{router}=express()
 
-router.get('/content',authenticateToken,generateRecipe)
+router.post('/content',authenticateToken,generateRecipe)
 
 export default router;
