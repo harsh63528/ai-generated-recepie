@@ -1,27 +1,63 @@
-import { Navigate } from "react-router-dom";
-import useStore from "../store/useStore";
 
+import { use, useRef } from "react";
+import useContent from "../store/useContent";
 export default function Home() {
-let {user} = useStore();
+  const { content, getContent } = useContent();
+  const dishname=useRef(null);
+  const ingredients=useRef(null);
+  const difficulty=useRef(null);
 
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    const data={
+      dishname:dishname.current.value,
+      ingredients:ingredients.current.value,
+      difficulty:difficulty.current.value
+    }
+    console.log("Form data:", data);
+    await getContent(data);
+    console.log("Content after fetching:", content);
+    }
 
   return (
-    <div className="bg-background-light min-h-screen">
-      <header className="p-4 border-b">
-        <h1 className="text-xl font-bold">RecipeAI</h1>
-      </header>
+   
+    <>
+    <form action=""  onSubmit={handleSubmit} method="post">
+      <input type="text" name="dishname" id="" ref={dishname} placeholder="enter dish name"/>
+      <input type="text" name="ingredients" ref={ingredients} placeholder="Enter ingredients" />
+      <label>
+        <input 
+        type="radio" 
+        name="difficulty" 
+        id=""
+        value="easy" 
+        ref={difficulty} 
+        placeholder="Easy" />
+        easy
+          </label>
+      <label>
+        <input 
+        type="radio" 
+        name="difficulty" 
+        id=""
+        value="medium" 
+        ref={difficulty} 
+        placeholder="Medium" />
+        medium
+        </label>
 
-      <section className="text-center py-10">
-        <h1 className="text-4xl font-bold">
-          Turn your ingredients into meals
-        </h1>
-
-        <input
-          type="text"
-          placeholder="Enter ingredients..."
-          className="mt-4 p-3 border rounded-lg w-80"
-        />
-      </section>
-    </div>
+      <label>
+        <input 
+        type="radio" 
+        name="difficulty" 
+        id=""
+        value="hard" 
+        ref={difficulty} 
+        placeholder="Hard" />
+        hard
+      </label>
+      <button type="submit">Generate Recipe</button>
+    </form>
+    </>
   );
 }
