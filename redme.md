@@ -32,7 +32,7 @@ The project is split into two folders:
   - `POST /api/auth/login` – Login user
   - `DELETE /api/auth/logout` – Logout (token blacklist)
   - `GET /api/auth/profile` – Get user profile (requires auth)
-  - `GET /api/data/content` – Generate recipe (requires auth)
+  - `POST /api/data/content` – Generate recipe (requires auth)
 - Integrates **Google Gemini (GenAI)** via `@google/genai`
 
 ---

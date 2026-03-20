@@ -8,43 +8,51 @@ const ai = new GoogleGenAI({ apiKey: `${process.env.GEMINI_API_KEY}` });
 
 async function main(data) {
 
-  const prompt = `
-You are a professional chef AI.
+  try {
+const prompt = `
+Generate recipe in JSON format only.
 
-Your task depends on the user input:
+      {
+        "dish": "",
+        "difficulty": "",
+        "ingredients": [],
+        "steps": []
+      }
 
-1. If a dish name is provided:
-   → Return ingredients and steps for that dish.
+      Dish: ${data.dish}
+      Ingredients: ${data.ingredients.join(", ")}
+      Difficulty: ${data.level}
 
-2. If only ingredients are provided:
-   → Create a suitable dish using those ingredients.
-
-Difficulty level will be provided as: easy, medium, or hard.
-Adjust the complexity of steps accordingly.
-
-STRICT RULES:
-- Return ONLY valid JSON
-- No extra text, no explanation
-- Follow the structure exactly
-
-JSON FORMAT:
-{
-  "dish": "string",
-  "difficulty": "easy | medium | hard",
-  "ingredients": ["string"],
-  "steps": ["string"]
-}
-
-USER INPUT:
-Dish: ${data.dish || ""}
-Ingredients: ${data.ingredients?.join(", ") || ""}
-Difficulty: ${data.level}
 `;
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: prompt,
   });
-  return response
+
+  const rawText = response.candidates[0].content.parts[0].text;
+
+    const match = rawText.match(/\{[\s\S]*\}/);
+
+    if (!match) throw new Error("Invalid JSON");
+
+    return JSON.parse(match[0]);
+  }
+  catch (error) {
+    console.error("Gemini Error:", error.message);
+
+    return {
+      dish: data.dish,
+      difficulty: data.level,
+      ingredients: data.ingredients,
+      steps: ["Failed to generate recipe"]
+    };
+
+  }
+
+  
+
+
+
 }
 
 export default main;
