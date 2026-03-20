@@ -6,6 +6,7 @@ import LogIn from './page/login.jsx'
 import SignUp from './page/signup.jsx'
 import { useEffect } from 'react'
 import useStore from './store/useStore.js'
+import Error from './page/error.jsx'
 
 function App() {
  let{user,Profile}= useStore();
@@ -21,6 +22,7 @@ function App() {
       <Route path='/' element={ user===null ? <LogIn />: <Home/> }/>
       <Route path='/login'  element={<LogIn/>}/>
       <Route path='/signup'  element={<SignUp/>}/>
+      <Route path='*' element={<Error/>}/> 
     </Routes>
     </>
   )
